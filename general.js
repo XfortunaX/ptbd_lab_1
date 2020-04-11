@@ -8,7 +8,7 @@ const B_IN_KB = 1024
 const KB_IN_MB = 1024
 const MB_IN_GB = 1024
 
-const SIZE_BYTE = 100 * KB_IN_MB * MB_IN_GB
+const SIZE_BYTE = 8 * B_IN_KB * KB_IN_MB * MB_IN_GB
 const HEAP_LIMIT = 1 * B_IN_KB * KB_IN_MB * MB_IN_GB
 const GARBAGE_TIMEOUT = 30000
 const SIZE_BATCH = 64 * B_IN_KB
