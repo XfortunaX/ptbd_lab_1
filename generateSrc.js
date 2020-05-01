@@ -1,6 +1,6 @@
 const fs = require('fs')
 const {
-  DIST_DIR, SIZE_BYTE, MIN_LENGTH, MAX_LENGTH, ALPHABET, SIZE_BATCH, HEAP_LIMIT, SRC_FILE,
+  DIST_DIR, SIZE_BYTE, MIN_LENGTH, MAX_LENGTH, ALPHABET, SIZE_BATCH, HEAP_LIMIT, SRC_FILE, GARBAGE_TIMEOUT,
   printTime, printSize, checkDir, createDir
 } = require('./general')
 
@@ -76,23 +76,27 @@ function write(writeStream) {
     }
   }
 
-  if (!garbageActive && size < SIZE_BYTE) {
-    garbageActive = true
+  if (size < SIZE_BYTE) {
+    if (!garbageActive) {
+      garbageActive = true
 
-    if (global && global.gc) {
-      global.gc()
+      if (global && global.gc) {
+        global.gc()
+        setTimeout(() => {
+          write(writeStream)
+        }, 1000)
+      } else {
+        setTimeout(() => {
+          write(writeStream)
+        }, 5000)
+      }
+
       setTimeout(() => {
-        write(writeStream)
-      }, 1000)
+        garbageActive = false
+      }, GARBAGE_TIMEOUT)
     } else {
-      setTimeout(() => {
-        write(writeStream)
-      }, 5000)
+      write(writeStream)
     }
-
-    setTimeout(() => {
-      garbageActive = false
-    }, 5000)
   }
 }
 

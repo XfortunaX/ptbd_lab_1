@@ -15,7 +15,7 @@ const SIZE_BATCH = 64 * B_IN_KB
 const CHUNK_SIZE = B_IN_KB * KB_IN_MB
 const MAX_PROCESS = 4
 
-const DIST_DIR = './dist/words_example_1'
+const DIST_DIR = './dist/words_example'
 const CHUNKS_DIR = DIST_DIR + '/chunks'
 const CHUNKS_MAP_DIR = DIST_DIR + '/chunks_map'
 const SRC_FILE = 'words.txt'
